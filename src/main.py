@@ -3,6 +3,7 @@ import fastapi.middleware.cors as cors
 import dotenv as env
 from pylast import User, LastFMNetwork
 import os
+import uvicorn
 import json
 import logging
 
@@ -22,13 +23,14 @@ orgs = [
     'http://localhost:8080',
 ]
 try:
-    with open('urls.json', 'rt') as f:
+    with open('/config/urls.json', 'rt') as f:
         json_data = json.loads(f)
     
     print('Retrieved URL data: ', json_data)
 
     for json in json_data:
         orgs.append(json)
+        logging.info('Added url:', json)
 except FileNotFoundError:
     logging.warning('You have not provided a urls.json. App will be accessible only to loopback address.') 
 except json.JSONDecodeError:
@@ -57,3 +59,11 @@ async def main(user: str):
     else:
         return None
         
+
+if __name__ == '__main__':
+    uvicorn.run(
+        "main:app",
+        log_config=None,
+        host="0.0.0.0",
+        port=8000
+    )

@@ -1,0 +1,12 @@
+services:
+  lastfm-backend:
+    build: .
+    image: stainlesteel/lastfm-backend:latest
+    restart: unless-stopped
+    environment:
+      LASTFM_API_KEY: # you can get this at: www.last.fm/api/account/create
+    volumes:
+      - ~/docker/volumes/lastfm/config:/config
+    ports:
+      - 8000:8000
+
