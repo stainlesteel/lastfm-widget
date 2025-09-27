@@ -7,20 +7,15 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-push:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
       run: docker compose build
-  publish:
-     runs-on: ubuntu-latest
-     needs:
-       - build
-     steps:
-        - name: login to docker
-          run: docker login --username ${{ secrets.USER }} --password ${{ secrets.PASS }}
       
-        - name: PUSH the Docker image
-          run: docker push stainlesteel/lastfm-backend:latest
-     
+    - name: login to docker
+      run: docker login --username ${{ secrets.USER }} --password ${{ secrets.PASS }}
+      
+    - name: PUSH the Docker image
+      run: docker push stainlesteel/lastfm-backend:latest
