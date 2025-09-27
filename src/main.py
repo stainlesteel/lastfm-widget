@@ -13,6 +13,10 @@ env.load_dotenv()
 
 LASTFM_API_KEY = os.getenv('LASTFM_API_KEY')
 
+if not LASTFM_API_KEY:
+    logging.error('A lastfm api key was either not provided or is not correct.')
+    raise SystemExit()
+
 nwtrk = LastFMNetwork(
     api_key=LASTFM_API_KEY,
     api_secret="b"

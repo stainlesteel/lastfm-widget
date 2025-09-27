@@ -6,7 +6,7 @@ services:
     environment:
       LASTFM_API_KEY: # you can get this at: www.last.fm/api/account/create
     volumes:
-      - ~/docker/volumes/lastfm/config:/config
+      - /PATH:/config
     ports:
       - 8000:8000
 
